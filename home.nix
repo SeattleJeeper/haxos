@@ -9,6 +9,11 @@ let
   gobuster = pkgs.callPackage ./pkgs/gobuster.nix {};
   seclists = pkgs.callPackage ./pkgs/seclists.nix {}; 
   raccoon = pkgs.callPackage ./pkgs/raccoon.nix {};
+
+  python-packages = ps: with ps; [
+    impacket
+    pwntools
+  ];
 in
 {
   home.username = "haxos";
@@ -39,8 +44,9 @@ in
     openvpn
     unzip
     raccoon
-    python3
     metasploit
+    nmap
+    (python3.withPackages python-packages)
   ];
 
   xsession.windowManager.awesome = {

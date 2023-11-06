@@ -1,8 +1,12 @@
 #!/bin/bash
 
-cp -f ./result/nixos.qcow2 ./nixos.qcow2
-sudo virsh undefine haxos --nvram 
-sudo virsh destroy haxos
+if [[ $1 = "reset" ]]
+then
+  cp -f ./result/nixos.qcow2 ./nixos.qcow2
+  sudo virsh undefine haxos --nvram 
+  sudo virsh destroy haxos
+fi
+
 sudo virt-install -n haxos \
   --memory 4096 \
   --vcpus=4 \

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, modulesPath, ... }:
 {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -36,6 +36,13 @@
   };
 
   environment.etc.hosts.mode = "0644";
+
+  system.build.qcow = lib.mkForce (import "${toString modulesPath}/../lib/make-disk-image.nix" {
+    inherit lib config pkgs;
+    diskSize = 40960;
+    format = "qcow2";
+    partitionTableType = "hybrid";
+  });
 
   system.stateVersion = "23.05";
 }
