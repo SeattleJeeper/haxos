@@ -9,6 +9,7 @@ let
   gobuster = pkgs.callPackage ./pkgs/gobuster.nix {};
   seclists = pkgs.callPackage ./pkgs/seclists.nix {}; 
   raccoon = pkgs.callPackage ./pkgs/raccoon.nix {};
+  zap = pkgs.callPackage ./pkgs/zap.nix {};
 
   python-packages = ps: with ps; [
     impacket
@@ -46,6 +47,7 @@ in
     raccoon
     metasploit
     nmap
+    zap
     (python3.withPackages python-packages)
   ];
 

@@ -39,7 +39,8 @@
 
   system.build.qcow = lib.mkForce (import "${toString modulesPath}/../lib/make-disk-image.nix" {
     inherit lib config pkgs;
-    diskSize = 40960;
+    diskSize = "auto";
+    additionalSpace = "10G";
     format = "qcow2";
     partitionTableType = "hybrid";
   });
