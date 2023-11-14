@@ -2,14 +2,13 @@
 let
   dotfiles = pkgs.fetchgit {
     url = "https://github.com/vncsb/dotfiles.git";
-    rev = "39ba3fefc87a5dd674d848a34c9da662cb288372";
-    hash = "sha256-zHjdXlDkoN669yZewWi/e3jsyYf99BbC3q2ezjFwY6c=";
+    rev = "53a857901e2e90f7c5df339cbb9d62ba83b3d00c";
+    hash = "sha256-ILc+nWmDUVvpXwapnIiSBQXdIs2ZdXrgmPlv717Q9/o=";
     fetchSubmodules = true;
   };
-  gobuster = pkgs.callPackage ./pkgs/gobuster.nix {};
-  seclists = pkgs.callPackage ./pkgs/seclists.nix {}; 
-  raccoon = pkgs.callPackage ./pkgs/raccoon.nix {};
-  zap = pkgs.callPackage ./pkgs/zap.nix {};
+  gobuster = pkgs.callPackage ./pkgs/gobuster.nix { };
+  seclists = pkgs.callPackage ./pkgs/seclists.nix { };
+  raccoon = pkgs.callPackage ./pkgs/raccoon.nix { };
 
   python-packages = ps: with ps; [
     impacket
@@ -47,6 +46,7 @@ in
     raccoon
     metasploit
     nmap
+    nssTools
     zap
     (python3.withPackages python-packages)
   ];
@@ -77,4 +77,19 @@ in
     ".p10k.zsh".source = "${dotfiles}/.p10k.zsh";
     "wordlists/seclists".source = seclists;
   };
+
+  home.activation.install-root-certificate =
+    let
+      zap = "${pkgs.zap}/bin/zap";
+      certutil = "${pkgs.nssTools}/bin/certutil";
+      awkPath = "${pkgs.gawk}/bin";
+    in
+      lib.hm.dag.entryAfter [ "installPackages" ] ''
+        export PATH="$PATH:${awkPath}"
+        $DRY_RUN_CMD ${zap} -addoninstall network -cmd $VERBOSE_ARG
+        $DRY_RUN_CMD ${zap} -certpubdump $HOME/zap-certificate.cer -cmd $VERBOSE_ARG
+        $DRY_RUN_CMD mkdir -p $HOME/.pki/nssdb
+        $DRY_RUN_CMD ${certutil} -d $HOME/.pki/nssdb -N --empty-password
+        $DRY_RUN_CMD ${certutil} -d sql:$HOME/.pki/nssdb/ -A -t "CP,CP," -n zap-certificate -i $HOME/zap-certificate.cer $VERBOSE_ARG
+      '';
 }
