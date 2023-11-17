@@ -49,6 +49,8 @@ in
     nssTools
     zap
     (python3.withPackages python-packages)
+    bruno
+    cadaver
   ];
 
   xsession.windowManager.awesome = {

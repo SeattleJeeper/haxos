@@ -4,6 +4,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   programs.zsh.enable = true;
+  virtualisation.docker.enable = true;
 
   services.xserver = {
     enable = true;
@@ -24,7 +25,7 @@
 
   users.users.haxos = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "docker"];
     initialPassword = "nix";
     shell = pkgs.zsh;
   };

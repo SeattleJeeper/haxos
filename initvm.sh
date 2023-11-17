@@ -8,8 +8,8 @@ then
 fi
 
 sudo virt-install -n haxos \
-  --memory 4096 \
-  --vcpus=4 \
+  --memory 6144 \
+  --vcpus=4,maxvcpus=12\
   --boot uefi \
   --disk ./nixos.qcow2,size=40,bus=virtio \
   --graphics spice \
