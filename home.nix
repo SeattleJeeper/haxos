@@ -51,6 +51,12 @@ in
     (python3.withPackages python-packages)
     bruno
     cadaver
+    thc-hydra
+    openldap
+    enum4linux
+    crackmapexec
+    samba
+    kerbrute
   ];
 
   xsession.windowManager.awesome = {

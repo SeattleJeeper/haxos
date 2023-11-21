@@ -3,6 +3,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  networking.firewall.trustedInterfaces = [
+    "tun0"
+  ];
+
   programs.zsh.enable = true;
   virtualisation.docker.enable = true;
 
