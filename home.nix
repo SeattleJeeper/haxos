@@ -2,8 +2,8 @@
 let
   dotfiles = pkgs.fetchgit {
     url = "https://github.com/vncsb/dotfiles.git";
-    rev = "53a857901e2e90f7c5df339cbb9d62ba83b3d00c";
-    hash = "sha256-ILc+nWmDUVvpXwapnIiSBQXdIs2ZdXrgmPlv717Q9/o=";
+    rev = "55bd64c18f842701ae5b29ca47fd185fbd766ea4";
+    hash = "sha256-GPtBPLff9eFaKbUQecHZl81zeye6qPjB1Z91xvOZ9Oc=";
     fetchSubmodules = true;
   };
   gobuster = pkgs.callPackage ./pkgs/gobuster.nix { };
@@ -23,8 +23,8 @@ in
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
-    git
     gcc
+    git
     zsh
     alacritty
     neovim
@@ -57,6 +57,9 @@ in
     crackmapexec
     samba
     kerbrute
+    updog
+    rclone
+    exploitdb
   ];
 
   xsession.windowManager.awesome = {
