@@ -2,13 +2,14 @@
 let
   dotfiles = pkgs.fetchgit {
     url = "https://github.com/vncsb/dotfiles.git";
-    rev = "55bd64c18f842701ae5b29ca47fd185fbd766ea4";
-    hash = "sha256-GPtBPLff9eFaKbUQecHZl81zeye6qPjB1Z91xvOZ9Oc=";
+    rev = "2abcaa142d3b5577a3f1b716f51815b636ac2576";
+    hash = "sha256-7pStAiZqDMFIPF4Qn+wt971rj19ueI2obhp73FHsjRs=";
     fetchSubmodules = true;
   };
   gobuster = pkgs.callPackage ./pkgs/gobuster.nix { };
   seclists = pkgs.callPackage ./pkgs/seclists.nix { };
   raccoon = pkgs.callPackage ./pkgs/raccoon.nix { };
+  tmux-tpm = pkgs.callPackage ./pkgs/tmux-tpm.nix { };
 
   python-packages = ps: with ps; [
     impacket
@@ -25,6 +26,7 @@ in
   home.packages = with pkgs; [
     gcc
     git
+    tmux
     zsh
     alacritty
     neovim
@@ -86,7 +88,9 @@ in
   home.file = {
     ".zshrc".source = "${dotfiles}/.zshrc";
     ".p10k.zsh".source = "${dotfiles}/.p10k.zsh";
+    ".tmux.conf".source = "${dotfiles}/.tmux.conf";
     "wordlists/seclists".source = seclists;
+    ".tmux/plugins/tpm".source = tmux-tpm; 
   };
 
   home.activation.install-root-certificate =
