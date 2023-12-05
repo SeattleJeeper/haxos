@@ -2,14 +2,13 @@
 let
   dotfiles = pkgs.fetchgit {
     url = "https://github.com/vncsb/dotfiles.git";
-    rev = "2abcaa142d3b5577a3f1b716f51815b636ac2576";
-    hash = "sha256-7pStAiZqDMFIPF4Qn+wt971rj19ueI2obhp73FHsjRs=";
+    rev = "3dceee1a966523270e99fab689f5f9cd99ecb09d";
+    hash = "sha256-qsNeaL9b2taENlWHHvwrJjqn5+9gHZqA7W3O0hKsXOM=";
     fetchSubmodules = true;
   };
   gobuster = pkgs.callPackage ./pkgs/gobuster.nix { };
   seclists = pkgs.callPackage ./pkgs/seclists.nix { };
   raccoon = pkgs.callPackage ./pkgs/raccoon.nix { };
-  tmux-tpm = pkgs.callPackage ./pkgs/tmux-tpm.nix { };
 
   python-packages = ps: with ps; [
     impacket
@@ -90,7 +89,6 @@ in
     ".p10k.zsh".source = "${dotfiles}/.p10k.zsh";
     ".tmux.conf".source = "${dotfiles}/.tmux.conf";
     "wordlists/seclists".source = seclists;
-    ".tmux/plugins/tpm".source = tmux-tpm; 
   };
 
   home.activation.install-root-certificate =
