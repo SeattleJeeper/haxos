@@ -61,6 +61,7 @@ in
     updog
     rclone
     exploitdb
+    john
   ];
 
   xsession.windowManager.awesome = {
