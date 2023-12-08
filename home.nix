@@ -62,6 +62,7 @@ in
     rclone
     exploitdb
     john
+    evil-winrm
   ];
 
   xsession.windowManager.awesome = {
