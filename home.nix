@@ -9,6 +9,7 @@ let
   gobuster = pkgs.callPackage ./pkgs/gobuster.nix { };
   seclists = pkgs.callPackage ./pkgs/seclists.nix { };
   raccoon = pkgs.callPackage ./pkgs/raccoon.nix { };
+  gitdumper = pkgs.python3Packages.callPackage ./pkgs/gitdumper.nix { };
 
   python-packages = ps: with ps; [
     impacket
@@ -55,7 +56,7 @@ in
     thc-hydra
     openldap
     enum4linux
-    crackmapexec
+    netexec
     samba
     kerbrute
     updog
@@ -63,6 +64,11 @@ in
     exploitdb
     john
     evil-winrm
+    bloodhound
+    bloodhound-py
+    sslscan
+    wpscan
+    gitdumper
   ];
 
   xsession.windowManager.awesome = {
