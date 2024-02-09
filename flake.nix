@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:vncsb/nixpkgs/add-netexec";
+    nixpkgs.url = "nixpkgs/master";
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";

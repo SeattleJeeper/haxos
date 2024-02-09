@@ -58,18 +58,17 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1703028959,
-        "narHash": "sha256-WiQZShsox8a+OC5baN1h+ABysp5ZbjMve862kH3wxaQ=",
-        "owner": "vncsb",
+        "lastModified": 1706546269,
+        "narHash": "sha256-S9AbeyqE5io+JPNNvsSPLlABi68sK8Sm7457n5J6Rkk=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "07520a61c5938ce0f892a657d6d590938dddaba9",
+        "rev": "bee5a980c13655d13b63c035d495608656c52a1a",
         "type": "github"
       },
       "original": {
-        "owner": "vncsb",
-        "ref": "add-netexec",
-        "repo": "nixpkgs",
-        "type": "github"
+        "id": "nixpkgs",
+        "ref": "master",
+        "type": "indirect"
       }
     },
     "root": {

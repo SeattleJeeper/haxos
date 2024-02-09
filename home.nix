@@ -2,8 +2,8 @@
 let
   dotfiles = pkgs.fetchgit {
     url = "https://github.com/vncsb/dotfiles.git";
-    rev = "3dceee1a966523270e99fab689f5f9cd99ecb09d";
-    hash = "sha256-qsNeaL9b2taENlWHHvwrJjqn5+9gHZqA7W3O0hKsXOM=";
+    rev = "f0b5d972e2c91c05ff24a6277a3fe6a6c20ad5d8";
+    hash = "sha256-JsgUxZzHh0hwopSulA9Ox7xOU+LE39/YZgq5OXs3zWg=";
     fetchSubmodules = true;
   };
   gobuster = pkgs.callPackage ./pkgs/gobuster.nix { };
@@ -31,7 +31,7 @@ in
     alacritty
     neovim
     chromium
-    firefox
+    firefox-devedition
     eza
     meslo-lgs-nf
     terminus-nerdfont
@@ -50,6 +50,7 @@ in
     nmap
     nssTools
     zap
+    burpsuite
     (python3.withPackages python-packages)
     bruno
     cadaver
@@ -69,6 +70,10 @@ in
     sslscan
     wpscan
     gitdumper
+    wine
+    winetricks
+    mono
+    sqlmap
   ];
 
   xsession.windowManager.awesome = {
