@@ -9,11 +9,13 @@ let
   gobuster = pkgs.callPackage ./pkgs/gobuster.nix { };
   seclists = pkgs.callPackage ./pkgs/seclists.nix { };
   raccoon = pkgs.callPackage ./pkgs/raccoon.nix { };
+  openvpn = pkgs.callPackage ./overrides/openvpn.nix { }; 
   gitdumper = pkgs.python3Packages.callPackage ./pkgs/gitdumper.nix { };
 
   python-packages = ps: with ps; [
     impacket
     pwntools
+    pyftpdlib
   ];
 in
 {
@@ -74,6 +76,7 @@ in
     winetricks
     mono
     sqlmap
+    wireshark
   ];
 
   xsession.windowManager.awesome = {
@@ -110,12 +113,12 @@ in
       certutil = "${pkgs.nssTools}/bin/certutil";
       awkPath = "${pkgs.gawk}/bin";
     in
-      lib.hm.dag.entryAfter [ "installPackages" ] ''
-        export PATH="$PATH:${awkPath}"
-        $DRY_RUN_CMD ${zap} -addoninstall network -cmd $VERBOSE_ARG
-        $DRY_RUN_CMD ${zap} -certpubdump $HOME/zap-certificate.cer -cmd $VERBOSE_ARG
-        $DRY_RUN_CMD mkdir -p $HOME/.pki/nssdb
-        $DRY_RUN_CMD ${certutil} -d $HOME/.pki/nssdb -N --empty-password
-        $DRY_RUN_CMD ${certutil} -d sql:$HOME/.pki/nssdb/ -A -t "CP,CP," -n zap-certificate -i $HOME/zap-certificate.cer $VERBOSE_ARG
-      '';
+    lib.hm.dag.entryAfter [ "installPackages" ] ''
+      export PATH="$PATH:${awkPath}"
+      $DRY_RUN_CMD ${zap} -addoninstall network -cmd $VERBOSE_ARG
+      $DRY_RUN_CMD ${zap} -certpubdump $HOME/zap-certificate.cer -cmd $VERBOSE_ARG
+      $DRY_RUN_CMD mkdir -p $HOME/.pki/nssdb
+      $DRY_RUN_CMD ${certutil} -d $HOME/.pki/nssdb -N --empty-password
+      $DRY_RUN_CMD ${certutil} -d sql:$HOME/.pki/nssdb/ -A -t "CP,CP," -n zap-certificate -i $HOME/zap-certificate.cer $VERBOSE_ARG
+    '';
 }
