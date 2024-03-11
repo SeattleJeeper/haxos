@@ -1,5 +1,4 @@
 { buildGoModule, fetchFromGitHub }: 
-
 buildGoModule rec {
   pname = "gobuster";
   version = "3.6.0";

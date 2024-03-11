@@ -1,4 +1,4 @@
-{ config, pkgs, lib, notes, dotfiles, ... }:
+{ config, pkgs, lib, dotfiles, notes, ... }:
 let
   gobuster = pkgs.callPackage ./pkgs/gobuster.nix { };
   seclists = pkgs.callPackage ./pkgs/seclists.nix { };
@@ -103,6 +103,7 @@ in
     ".p10k.zsh".source = "${dotfiles}/.p10k.zsh";
     ".tmux.conf".source = "${dotfiles}/.tmux.conf";
     "wordlists/seclists".source = seclists;
+    "notes".source = notes;
   };
 
   home.activation.install-root-certificate =

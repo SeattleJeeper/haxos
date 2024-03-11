@@ -1,4 +1,7 @@
 { config, pkgs, lib, modulesPath, ... }:
+let
+  lain = pkgs.callPackage ./pkgs/lain.nix { lua = pkgs.lua5_3; };
+in
 {
   nixpkgs.config.allowUnfree = true;
 
@@ -14,11 +17,14 @@
 
   services.xserver = {
     enable = true;
-    windowManager.awesome.enable = true;
+    windowManager.awesome = {
+      enable = true;
+      luaModules = [ pkgs.luarocks lain ];
+    };
     displayManager = {
       autoLogin.enable = true;
       autoLogin.user = "haxos";
-      
+
       sessionCommands = ''
         ${pkgs.xorg.xrandr}/bin/xrandr --newmode "3440x1440_60.00" 419.11 3440 3688 4064 4688 1440 1441 1444 1490 -HSync +VSync &&
         ${pkgs.xorg.xrandr}/bin/xrandr --addmode Virtual-1 3440x1440_60.00 &&
@@ -31,7 +37,7 @@
 
   users.users.haxos = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker"];
+    extraGroups = [ "wheel" "docker" ];
     initialPassword = "nix";
     shell = pkgs.zsh;
   };
@@ -39,7 +45,7 @@
   environment.shells = with pkgs; [ zsh ];
 
   environment.sessionVariables = {
-    WINIT_X11_SCALE_FACTOR = "1.44"; 
+    WINIT_X11_SCALE_FACTOR = "1.44";
   };
 
   environment.etc.hosts.mode = "0644";
