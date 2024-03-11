@@ -1,21 +1,17 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, notes, dotfiles, ... }:
 let
-  dotfiles = pkgs.fetchgit {
-    url = "https://github.com/vncsb/dotfiles.git";
-    rev = "f0b5d972e2c91c05ff24a6277a3fe6a6c20ad5d8";
-    hash = "sha256-JsgUxZzHh0hwopSulA9Ox7xOU+LE39/YZgq5OXs3zWg=";
-    fetchSubmodules = true;
-  };
   gobuster = pkgs.callPackage ./pkgs/gobuster.nix { };
   seclists = pkgs.callPackage ./pkgs/seclists.nix { };
   raccoon = pkgs.callPackage ./pkgs/raccoon.nix { };
-  openvpn = pkgs.callPackage ./overrides/openvpn.nix { }; 
+  openvpn = pkgs.callPackage ./overrides/openvpn.nix { };
   gitdumper = pkgs.python3Packages.callPackage ./pkgs/gitdumper.nix { };
+  dirsearch = pkgs.python3Packages.callPackage ./pkgs/dirsearch.nix { };
 
   python-packages = ps: with ps; [
     impacket
     pwntools
     pyftpdlib
+    dirsearch
   ];
 in
 {
@@ -77,6 +73,8 @@ in
     mono
     sqlmap
     wireshark
+    exiftool
+    whatweb
   ];
 
   xsession.windowManager.awesome = {
