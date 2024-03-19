@@ -1,4 +1,4 @@
-{ config, pkgs, lib, dotfiles, notes, ... }:
+{ config, pkgs, lib, dotfiles, ... }:
 let
   gobuster = pkgs.callPackage ./pkgs/gobuster.nix { };
   seclists = pkgs.callPackage ./pkgs/seclists.nix { };
@@ -17,7 +17,7 @@ in
 {
   home.username = "haxos";
   home.homeDirectory = "/home/haxos";
-  home.stateVersion = "23.05";
+  home.stateVersion = "23.11";
 
   fonts.fontconfig.enable = true;
 
@@ -75,6 +75,11 @@ in
     wireshark
     exiftool
     whatweb
+    wafw00f
+    onesixtyone
+    snmpcheck
+    nfs-utils
+    jq
   ];
 
   xsession.windowManager.awesome = {
@@ -103,7 +108,6 @@ in
     ".p10k.zsh".source = "${dotfiles}/.p10k.zsh";
     ".tmux.conf".source = "${dotfiles}/.tmux.conf";
     "wordlists/seclists".source = seclists;
-    "notes".source = notes;
   };
 
   home.activation.install-root-certificate =

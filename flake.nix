@@ -11,23 +11,20 @@
       url = "github:vncsb/dotfiles";
       flake = false;
     };
-    notes = {
-      url = "git+ssh://git@github.com/vncsb/notes";
-      flake = false;
-    };
   };
-  outputs = { self, nixpkgs, nixos-generators, home-manager, dotfiles, notes }: {
+  outputs = { self, nixpkgs, nixos-generators, home-manager, dotfiles }: {
     packages.x86_64-linux = {
       qcow = nixos-generators.nixosGenerate {
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
+          ./overlays/default.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.haxos = import ./home.nix;
-            home-manager.extraSpecialArgs = { inherit dotfiles notes; };
+            home-manager.extraSpecialArgs = { inherit dotfiles; };
           }
         ];
         format = "qcow";

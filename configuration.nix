@@ -3,6 +3,7 @@ let
   lain = pkgs.callPackage ./pkgs/lain.nix { lua = pkgs.lua5_3; };
 in
 {
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
   boot.loader.systemd-boot.enable = true;
@@ -19,7 +20,7 @@ in
     enable = true;
     windowManager.awesome = {
       enable = true;
-      luaModules = [ pkgs.luarocks lain ];
+      luaModules = [ lain ];
     };
     displayManager = {
       autoLogin.enable = true;
@@ -33,7 +34,19 @@ in
     };
   };
 
-  services.spice-vdagentd.enable = true;
+  services.postgresql = {
+    enable = true;
+    authentication = pkgs.lib.mkForce ''
+      # TYPE  DATABASE USER ADDRESS METHOD
+        local all      all          trust
+    '';
+    };
+
+  services = {
+    rpcbind.enable = true;
+    nfs.server.enable = true;
+    spice-vdagentd.enable = true;
+  };
 
   users.users.haxos = {
     isNormalUser = true;
@@ -58,5 +71,5 @@ in
     partitionTableType = "hybrid";
   });
 
-  system.stateVersion = "23.05";
+  system.stateVersion = "23.11";
 }

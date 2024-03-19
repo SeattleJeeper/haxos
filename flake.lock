@@ -3,11 +3,11 @@
     "dotfiles": {
       "flake": false,
       "locked": {
-        "lastModified": 1710104877,
-        "narHash": "sha256-1H/iCjqJDZLrZAvOA3uTHaJyZwzr2xDxCDrXU4QlUzs=",
+        "lastModified": 1710194775,
+        "narHash": "sha256-Q19oFdmBZsK0ZK35qJrthN/zxOQkfmgMZFojyz6zCss=",
         "owner": "vncsb",
         "repo": "dotfiles",
-        "rev": "d4a129aa0790a705bc12fd84f13ca6679fe513a4",
+        "rev": "9e3cc3acdb6d89be4b16ea945317166636915926",
         "type": "github"
       },
       "original": {
@@ -23,11 +23,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1710062421,
-        "narHash": "sha256-FiCNRfyUgJOLYIokLiFsfI7B+Zn9HDnOzFR3uVr5qsQ=",
+        "lastModified": 1710164657,
+        "narHash": "sha256-l64+ZjaQAVkHDVaK0VHwtXBdjcBD6nLBD+p7IfyBp/w=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "36f873dfc8e2b6b89936ff3e2b74803d50447e0a",
+        "rev": "017b12de5b899ef9b64e2c035ce257bfe95b8ae2",
         "type": "github"
       },
       "original": {
@@ -59,11 +59,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1709887845,
-        "narHash": "sha256-803UIoB8+vGkm/VK/g55aBAAOf/ncTGvxXyjTF4ydm0=",
+        "lastModified": 1710164763,
+        "narHash": "sha256-6p7yebSjzrL8qK4Q0gx2RnsxaudGUQcgkSxFG/J265Y=",
         "owner": "nix-community",
         "repo": "nixos-generators",
-        "rev": "bef32a05496d9480b02be586fa7827748b9e597b",
+        "rev": "1d9c8cd24eba7942955f92fdcefba5a6a7543bc6",
         "type": "github"
       },
       "original": {
@@ -74,11 +74,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1710163406,
-        "narHash": "sha256-Bm+sR2BldtO6RxHl6oVvWHQmdvUGms3p03igWU0woDo=",
+        "lastModified": 1710189804,
+        "narHash": "sha256-zTFHQgdezrocueA0v1LvBuK6rcGu0c7mQ35d1IO7suk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "fc405ec2d865736e49f747699f21e0eacdf5ea7d",
+        "rev": "48dbdff7aab3fb4a856a9952dde3be3caab1cc68",
         "type": "github"
       },
       "original": {
@@ -87,29 +87,12 @@
         "type": "indirect"
       }
     },
-    "notes": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1710108622,
-        "narHash": "sha256-4UW/mnOET6aXuiaEaArf2kCozIFDMzWiS5rxcbphNj0=",
-        "ref": "refs/heads/main",
-        "rev": "3b5fa0ddfb0ca8708ab50c524eb43f0bad4a863b",
-        "revCount": 1,
-        "type": "git",
-        "url": "ssh://git@github.com/vncsb/notes"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/vncsb/notes"
-      }
-    },
     "root": {
       "inputs": {
         "dotfiles": "dotfiles",
         "home-manager": "home-manager",
         "nixos-generators": "nixos-generators",
-        "nixpkgs": "nixpkgs",
-        "notes": "notes"
+        "nixpkgs": "nixpkgs"
       }
     }
   },
