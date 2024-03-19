@@ -1,9 +1,10 @@
-{ config, pkgs, lib, dotfiles, ... }:
+{ config, pkgs, pkgs-stable, lib, dotfiles, ... }:
 let
   gobuster = pkgs.callPackage ./pkgs/gobuster.nix { };
   seclists = pkgs.callPackage ./pkgs/seclists.nix { };
   raccoon = pkgs.callPackage ./pkgs/raccoon.nix { };
   openvpn = pkgs.callPackage ./overrides/openvpn.nix { };
+  msf-database = pkgs.callPackage ./config/metasploit/database.nix { };
   gitdumper = pkgs.python3Packages.callPackage ./pkgs/gitdumper.nix { };
   dirsearch = pkgs.python3Packages.callPackage ./pkgs/dirsearch.nix { };
 
@@ -13,6 +14,8 @@ let
     pyftpdlib
     dirsearch
   ];
+
+  metasploit-stable = pkgs-stable.metasploit; 
 in
 {
   home.username = "haxos";
@@ -44,7 +47,7 @@ in
     openvpn
     unzip
     raccoon
-    metasploit
+    metasploit-stable
     nmap
     nssTools
     zap
@@ -108,6 +111,7 @@ in
     ".p10k.zsh".source = "${dotfiles}/.p10k.zsh";
     ".tmux.conf".source = "${dotfiles}/.tmux.conf";
     "wordlists/seclists".source = seclists;
+    ".msf4/database.yml".text = msf-database;
   };
 
   home.activation.install-root-certificate =

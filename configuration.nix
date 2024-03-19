@@ -1,4 +1,4 @@
-{ config, pkgs, lib, modulesPath, ... }:
+{ config, pkgs, pkgs-stable, lib, modulesPath, ... }:
 let
   lain = pkgs.callPackage ./pkgs/lain.nix { lua = pkgs.lua5_3; };
 in
@@ -36,11 +36,18 @@ in
 
   services.postgresql = {
     enable = true;
-    authentication = pkgs.lib.mkForce ''
-      # TYPE  DATABASE USER ADDRESS METHOD
-        local all      all          trust
+    initialScript = pkgs.writeText "init-msf-database" ''
+      CREATE ROLE msf_user WITH LOGIN;
+      CREATE DATABASE msf_database OWNER msf_user;
+      GRANT ALL PRIVILEGES ON DATABASE msf_database TO msf_user;
     '';
-    };
+    authentication = pkgs.lib.mkForce ''
+      # TYPE  DATABASE USER ADDRESS        METHOD
+        local all      all                 trust
+        host  all      all  127.0.0.1/32   trust
+        host  all      all  ::1/128        trust
+    '';
+  };
 
   services = {
     rpcbind.enable = true;

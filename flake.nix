@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "nixpkgs/master";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -12,10 +13,14 @@
       flake = false;
     };
   };
-  outputs = { self, nixpkgs, nixos-generators, home-manager, dotfiles }: {
+  outputs = { self, nixpkgs, nixpkgs-stable, nixos-generators, home-manager, dotfiles }:
+  let
+    system = "x86_64-linux";
+  in
+  {
     packages.x86_64-linux = {
       qcow = nixos-generators.nixosGenerate {
-        system = "x86_64-linux";
+        inherit system;
         modules = [
           ./configuration.nix
           ./overlays/default.nix
@@ -24,7 +29,12 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.haxos = import ./home.nix;
-            home-manager.extraSpecialArgs = { inherit dotfiles; };
+            home-manager.extraSpecialArgs = {
+              inherit dotfiles;
+              pkgs-stable = import nixpkgs-stable {
+                inherit system;
+              };
+            };
           }
         ];
         format = "qcow";
