@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-stable, lib, modulesPath, ... }:
+{ config, pkgs, lib, modulesPath, ... }:
 let
   lain = pkgs.callPackage ./pkgs/lain.nix { lua = pkgs.lua5_3; };
 in

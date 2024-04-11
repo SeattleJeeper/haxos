@@ -3,7 +3,7 @@ let
   gobuster = pkgs.callPackage ./pkgs/gobuster.nix { };
   seclists = pkgs.callPackage ./pkgs/seclists.nix { };
   raccoon = pkgs.callPackage ./pkgs/raccoon.nix { };
-  openvpn = pkgs.callPackage ./overrides/openvpn.nix { };
+  openvpn-legacy = pkgs.callPackage ./overrides/openvpn.nix { };
   msf-database = pkgs.callPackage ./config/metasploit/database.nix { };
   gitdumper = pkgs.python3Packages.callPackage ./pkgs/gitdumper.nix { };
   dirsearch = pkgs.python3Packages.callPackage ./pkgs/dirsearch.nix { };
@@ -15,7 +15,7 @@ let
     dirsearch
   ];
 
-  metasploit-stable = pkgs-stable.metasploit; 
+  metasploit-stable = pkgs-stable.metasploit;
 in
 {
   home.username = "haxos";
@@ -44,7 +44,7 @@ in
     wget
     rustup
     go
-    openvpn
+    openvpn-legacy
     unzip
     raccoon
     metasploit-stable
@@ -83,6 +83,12 @@ in
     snmpcheck
     nfs-utils
     jq
+    dig
+    responder
+    crackmapexec
+    openssl
+    dnsrecon
+    amass
   ];
 
   xsession.windowManager.awesome = {
@@ -112,6 +118,10 @@ in
     ".tmux.conf".source = "${dotfiles}/.tmux.conf";
     "wordlists/seclists".source = seclists;
     ".msf4/database.yml".text = msf-database;
+  };
+
+  home.sessionVariables = {
+    TMUX_LOGGING = "true";
   };
 
   home.activation.install-root-certificate =
